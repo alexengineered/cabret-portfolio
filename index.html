@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hugo Cabret - Portfolio</title>
+    <meta name="description"
+          content="A business oriented product engineer with 3+ years of experience working in fintech and proptech industries">
+
+    <style>
+        /* ============================================
+           CSS VARIABLES - DESIGN SYSTEM
+           ============================================ */
+        :root {
+            /* Colors - Light Mode */
+            --color-bg: #fbfbfb;
+            --color-text-primary: #1a181c;
+            --color-text-secondary: #2e2e2e;
+            --color-text-tertiary: #C4C5C9;
+            --color-border: #E5E5E5;
+            --color-selected: rgba(36, 33, 38, 0.1);
+
+            /* Spacing Scale */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-14: 3.5rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            --space-28: 7rem;
+            --space-32: 8rem;
+            --space-48: 12rem;
+            --space-56: 14rem;
+
+            /* Container */
+            --container-max: 80rem;
+
+            /* Transitions */
+            --transition-fast: 150ms;
+            --transition-normal: 250ms;
+            --transition-slow: 400ms;
+            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        /* ============================================
+        RESET & BASE STYLES
+        ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: PPNeueMontreal, sans-serif;
+            line-height: 1.5;
+            font-size: .9rem;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            min-height: 100vh;
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+        }
+
+        ::selection {
+            background-color: var(--color-selected);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        h3, h4 {
+            font-weight: 400;
+        }
+
+        p {
+            font-size: .9rem;
+            margin-bottom: 1em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            border-radius: 2px;
+            background-color: var(--color-text-primary);
+            bottom: -2px;
+            left: 0;
+            transform-origin: right;
+            transform: scaleX(0);
+            transition: transform .3s ease-in-out;
+        }
+
+        a:hover::before {
+            transform-origin: left;
+            transform: scaleX(1);
+        }
+
+        button {
+            font-family: inherit;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: inherit;
+        }
+
+        .btn:hover::before {
+            transform-origin: left;
+            transform: scaleX(1);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            border-radius: 2px;
+            background-color: var(--color-text-primary);
+            bottom: -2px;
+            left: 0;
+            transform-origin: right;
+            transform: scaleX(0);
+            transition: transform .3s ease-in-out;
+        }
+
+        /* ============================================
+           HEADER - FIXED NAVIGATION
+           ============================================ */
+        .header {
+            max-width: var(--container-max);
+            margin-inline: var(--space-6);
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-template-rows: auto;
+            position: relative;
+            left: 0;
+            right: 0;
+            top: var(--space-8);
+            z-index: 100;
+            background-color: var(--color-bg);
+            transition: background-color var(--transition-normal);
+        }
+
+        .project-title {
+            font-size: clamp(1.25rem, 3vw, 1.875rem);
+        }
+
+        @media (min-width: 48rem) {
+            .header {
+                margin-inline: var(--space-16);
+            }
+        }
+
+        @media (min-width: 64rem) {
+            .header {
+                grid-template-columns: repeat(8, 1fr);
+                column-gap: 0;
+            }
+        }
+
+        @media (min-width: 80rem) {
+            .header {
+                column-gap: var(--space-8);
+            }
+        }
+
+        @media (min-width: 96rem) {
+            .header {
+                min-width: var(--container-max);
+                padding-inline: var(--space-16);
+                margin-inline: auto;
+            }
+        }
+
+        .header-left {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .header-left h4 {
+            font-weight: 500;
+        }
+
+        @media (min-width: 64rem) {
+            .header-left {
+                display: block;
+                grid-column: span 3;
+            }
+        }
+
+        .location {
+            color: var(--color-text-secondary);
+        }
+
+        .header-right {
+            display: none;
+        }
+
+        @media (min-width: 64rem) {
+            .header-right {
+                display: block;
+                grid-column: span 2;
+            }
+        }
+
+        span.contact-link {
+            font-size: 17px;
+            margin-right: 25px;
+            font-weight: 400;
+        }
+
+        .contact-link {
+            font-size: 0.875rem;
+            line-height: 1.4;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Theme Toggle - Hidden on mobile, positioned on desktop */
+        .theme-toggle {
+            display: none;
+        }
+
+        @media (min-width: 64rem) {
+            .theme-toggle {
+                display: block;
+                grid-column: 5 / span 1;
+                font-size: 0.875rem;
+                line-height: 1.4;
+                padding: 0;
+            }
+        }
+
+        /* Desktop Navigation - Hidden on mobile, top right on desktop */
+        .nav-desktop {
+            display: none;
+        }
+
+        @media (min-width: 64rem) {
+            .nav-desktop {
+                display: flex;
+                gap: var(--space-4);
+                grid-column: 6 / span 4;
+                justify-self: end;
+                align-items: start;
+            }
+        }
+
+        @media (min-width: 80rem) {
+            .nav-desktop {
+                gap: var(--space-8);
+            }
+        }
+
+        .nav-link {
+            font-size: 17px;
+            /*letter-spacing: 0.05em;*/
+            padding: 0;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        /* Mobile Menu Toggle - Visible on mobile only */
+        .menu-toggle {
+            display: block;
+            position: relative;
+            justify-self: end;
+        }
+
+        @media (min-width: 64rem) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--color-bg);
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-6);
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: var(--space-10);
+            right: var(--space-6);
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            padding: 0;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-8);
+            align-items: center;
+        }
+
+        .mobile-nav .nav-link {
+            font-size: 1.5rem;
+        }
+
+        .mobile-menu-footer {
+            position: absolute;
+            bottom: var(--space-10);
+            left: var(--space-6);
+            right: var(--space-6);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .mobile-footer-link,
+        .mobile-theme-toggle {
+            font-size: 0.875rem;
+            line-height: 1.4;
+            display: inline-block;
+            position: relative;
+            padding: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --color-bg: #222023;
+            --color-text-primary: #dbdcde;
+            --color-text-secondary: #bcbbbb;
+            --color-text-tertiary: #575757;
+            --color-border: #2B292E;
+            --color-selected: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle,
+        .mobile-theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .toggle-track {
+            width: 60px;
+            height: 30px;
+            background: #d3d2d2;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            padding: 3px;
+            transition: background 0.3s;
+        }
+
+        .toggle-thumb {
+            width: 24px;
+            height: 24px;
+            background: #353337;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .toggle-thumb svg {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            transition: opacity 0.3s;
+        }
+
+        .moon-icon {
+            color: white;
+            opacity: 0;
+        }
+
+        .sun-icon {
+            color: #fffdc0;
+            stroke-width: 2;
+        }
+
+        /* Dark mode */
+        [data-theme="dark"] .toggle-track {
+            background: #2c2c2c;
+        }
+
+        [data-theme="dark"] .toggle-thumb {
+            transform: translateX(30px);
+            background: white;
+        }
+
+        [data-theme="dark"] .moon-icon {
+            opacity: 1;
+            color: #2c2c2c;
+        }
+
+        [data-theme="dark"] .sun-icon {
+            opacity: 0;
+        }
+
+        /* Light mode thumb */
+        [data-theme="light"] .toggle-thumb {
+            background: #EAEAEA;
+        }
+
+        [data-theme="light"] .sun-icon {
+            color: #EAEAEA;
+        }
+
+        [data-theme="light"] .toggle-track {
+            background: #dddde1;
+        }
+
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            padding-top: 3rem;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding-top: 4rem;
+            max-width: var(--container-max);
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: clamp(3.4rem, 10vw, 9rem);
+            font-weight: 400;
+            letter-spacing: 0;
+            margin-bottom: var(--space-32);
+            width: 100%;
+        }
+
+        @media (min-width: 48rem) {
+            .hero-title {
+                font-size: 5.65rem;
+            }
+        }
+
+        @media (min-width: 64rem) {
+            .hero-title {
+                font-size: 9rem;
+            }
+        }
+
+        .hero-name-first,
+        .hero-name-last {
+            display: block;
+            width: 100%;
+            white-space: nowrap;
+            color: #09090B;
+        }
+
+        .hero-name-first {
+            text-align: center;
+            max-width: 60%;
+            margin-right: auto;
+        }
+
+        .hero-name-last {
+            text-align: center;
+            margin-top: calc(var(--space-4) * -1);
+            max-width: 60%;
+            margin-left: auto;
+        }
+
+        [data-theme="dark"] .hero-name-first,
+        [data-theme="dark"] .hero-name-last {
+            color: #C4C5C9;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+            max-width: 36rem;
+            position: absolute;
+            bottom: 0;
+            left: var(--space-6);
+            right: var(--space-6);
+        }
+
+        @media (min-width: 48rem) {
+            .hero-subtitle {
+                left: var(--space-16);
+                max-width: 50%;
+            }
+        }
+
+        /* ============================================
+           SECTIONS - GENERAL
+           ============================================ */
+        .section {
+            padding: var(--space-32) var(--space-6) 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (min-width: 48rem) {
+            .section {
+                padding: var(--space-48) var(--space-16) 0;
+            }
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-transform: uppercase;
+            margin-bottom: var(--space-4);
+        }
+
+        @media (min-width: 96rem) {
+            .section {
+                max-width: var(--container-max);
+                margin: 0 auto;
+                padding-left: var(--space-14);
+                padding-right: var(--space-14);
+            }
+
+            .section-title {
+                font-size: clamp(2rem, 5vw, 3.8rem);
+            }
+        }
+
+
+        .section-divider {
+            height: 2px;
+            background-color: var(--color-border);
+            border: none;
+            margin-bottom: var(--space-12);
+        }
+
+        @media (min-width: 48rem) {
+            .section-divider {
+                margin-bottom: var(--space-16);
+            }
+
+            .section-title {
+                font-size: clamp(2rem, 6vw, 4rem);
+            }
+
+            /* ============================================
+               ABOUT SECTION
+               ============================================ */
+            .about-content {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: var(--space-8);
+            }
+
+            @media (min-width: 48rem) {
+                .about-content {
+                    grid-template-columns: repeat(6, 1fr);
+                }
+            }
+
+            @media (min-width: 64rem) {
+                .about-content {
+                    grid-template-columns: repeat(8, 1fr);
+                }
+            }
+
+            .about-headline {
+                font-size: 1.7rem;
+                line-height: 1.4;
+                margin-bottom: var(--space-12);
+            }
+
+            @media (min-width: 48rem) {
+                .about-headline {
+                    grid-column: 1 / span 3;
+                    margin-bottom: 0;
+                }
+            }
+
+            @media (min-width: 64rem) {
+                .about-headline {
+                    grid-column: 1 / span 5;
+                    padding-right: var(--space-8);
+                    line-height: 160%;
+                }
+            }
+
+            .about-text {
+                color: var(--color-text-secondary);
+                line-height: 1.6;
+            }
+
+            @media (min-width: 48rem) {
+                .about-text {
+                    grid-column: 4 / span 3;
+                    grid-row: 1 / span 2;
+                }
+            }
+
+            @media (min-width: 64rem) {
+                .about-text {
+                    grid-column: 6 / span 3;
+                }
+            }
+
+            .about-footer {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-2);
+                margin-top: var(--space-14);
+            }
+
+            @media (min-width: 48rem) {
+                .about-footer {
+                    grid-column: 1 / span 3;
+                    flex-direction: row;
+                    gap: var(--space-4);
+                    align-items: flex-end;
+                    padding-bottom: 1rem;
+                }
+            }
+
+            @media (min-width: 64rem) {
+                .about-footer {
+                    gap: var(--space-12);
+                }
+            }
+
+            .about-skills {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-1);
+            }
+
+            .about-skills p {
+                font-size: .9rem;
+                white-space: nowrap;
+            }
+
+            .link-animated {
+                font-size: 1rem;
+                line-height: 1.4;
+                display: inline-block;
+                position: relative;
+            }
+
+            /* ============================================
+               EXPERIENCE SECTION
+               ============================================ */
+            .experience-list {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-28);
+            }
+
+            .experience-item {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: var(--space-8);
+            }
+
+            @media (min-width: 48rem) {
+                .experience-item {
+                    grid-template-columns: repeat(6, 1fr);
+                    grid-template-rows: auto auto auto;
+                }
+            }
+
+            @media (min-width: 64rem) {
+                .experience-item {
+                    grid-template-columns: repeat(8, 1fr);
+                    grid-template-rows: auto auto;
+                }
+            }
+
+            .experience-company {
+                font-size: clamp(1.5rem, 4.8vw, 2.8rem);
+            }
+
+            @media (min-width: 48rem) {
+                .experience-company {
+                    grid-column: 1 / span 6;
+                    grid-row: 1;
+                    font-size: clamp(1.5rem, 4vw, 2.5rem);
+                }
+
+            }
+
+            .experience-meta {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-3);
+            }
+
+            @media (min-width: 48rem) {
+                .experience-meta {
+                    grid-column: 1 / span 3;
+                    grid-row: 2;
+                }
+            }
+
+            @media (min-width: 64rem) {
+                .experience-meta {
+                    grid-column: 1 / span 2;
+                    gap: var(--space-4);
+                }
+            }
+
+            .experience-meta p {
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+            .experience-description {
+                line-height: 1.6;
+                color: var(--color-text-secondary);
+            }
+
+            @media (min-width: 48rem) {
+                .experience-description {
+                    grid-column: 1 / span 3;
+                    grid-row: 3;
+                }
+            }
+
+            @media (min-width: 64rem) {
+                .experience-description {
+                    grid-column: 6 / span 3;
+                    grid-row: 2;
+                }
+            }
+
+            .experience-details {
+                display: grid;
+                grid-template-columns: min-content min-content;
+                justify-content: space-between;
+                column-gap: var(--space-16);
+                row-gap: var(--space-4);
+                height: max-content;
+            }
+
+            @media (min-width: 48rem) {
+                .experience-details {
+                    grid-column: 4 / span 3;
+                    grid-row: 2 / span 2;
+                    justify-self: end;
+                    max-width: 20.375rem;
+                    width: 100%;
+                }
+            }
+
+            @media (min-width: 64rem) {
+                .experience-details {
+                    grid-column: 3 / span 2;
+                    grid-row: 2;
+                }
+            }
+
+            .detail-row {
+                display: contents;
+            }
+
+            .detail-label {
+                color: var(--color-text-secondary);
+                white-space: nowrap;
+                font-size: .9rem;
+            }
+
+            .detail-value,
+            .detail-link {
+                white-space: nowrap;
+                text-align: right;
+                font-size: .9rem;
+                font-weight: 500;
+            }
+
+            .detail-link {
+                display: inline-block;
+                position: relative;
+            }
+
+            /* ============================================
+               PROJECTS SECTION
+               ============================================ */
+            .projects-list {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-28);
+            }
+
+            .project-item {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: var(--space-8);
+            }
+
+
+            @media (min-width: 64rem) {
+                .project-item {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: var(--space-16);
+                    align-items: start;
+                }
+
+                .project-item-reverse {
+                    direction: rtl;
+                }
+
+                .project-item-reverse > * {
+                    direction: ltr;
+                }
+            }
+
+            .project-content {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-2);
+            }
+
+            .project-meta {
+                color: var(--color-text-secondary);
+                font-weight: 500;
+            }
+
+            .project-description {
+                color: var(--color-text-secondary);
+            }
+
+            .project-link {
+                font-size: 1rem;
+                margin-top: var(--space-4);
+                display: inline-block;
+                position: relative;
+            }
+
+            .project-image {
+                width: 100%;
+                aspect-ratio: 3 / 2;
+                background-color: #1a1a1a;
+                border-radius: 4px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #666;
+                font-size: 1.25rem;
+            }
+
+            .project-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            padding: var(--space-32) var(--space-6) var(--space-12);
+        }
+
+        .footer {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding-left: var(--space-14);
+            padding-right: var(--space-14);
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+            margin-top: var(--space-20);
+            margin-bottom: var(--space-20);
+        }
+
+        .footer-contact {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-4);
+            margin-top: var(--space-24);
+            margin-bottom: var(--space-24);
+        }
+
+        .footer-title {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 400;
+        }
+
+        .footer-email {
+            font-size: clamp(1.25rem, 3vw, 1.875rem);
+            font-weight: 400;
+        }
+
+        .footer-bottom {
+            display: flex;
+            gap: var(--space-8);
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-6);
+        }
+
+        .footer-link {
+            font-size: 1rem;
+            display: inline-block;
+            position: relative;
+            font-weight: 500;
+        }
+
+        /*Copy Email*/
+
+        .copy-message {
+            color: #4fb8e4;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            margin-left: 0;
+            margin-top: 20px;
+        }
+
+        .copy-message.show {
+            opacity: 1;
+        }
+
+        .mobile-break {
+            display: block;
+        }
+
+        @media (min-width: 600px) {
+            .mobile-break {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <h4>CONTACT INFO:</h4>
+        <span class="contact-link btn" onclick="copyEmail(event)">
+                hugo.cabret@email.com </span>
+        <br class="mobile-break">
+
+        <span> +33 1 45 67 8901</span>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" aria-label="Toggle color mode">
+  <span class="toggle-track">
+    <span class="toggle-thumb">
+      <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <svg class="sun-icon" viewBox="0 0 24 24" fill="currentColor">
+        <circle cx="12" cy="12" r="5"/>
+        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/>
+      </svg>
+    </span>
+  </span>
+    </button>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop">
+        <button class="nav-link btn" data-section="about">ABOUT</button>
+        <button class="nav-link btn" data-section="experience">EXPERIENCE</button>
+        <button class="nav-link btn" data-section="projects">PROJECTS</button>
+        <button class="nav-link btn"><a href="assets/hugo-cabret-resume.pdf">RESUME</a></button>
+
+    </nav>
+    <!-- Mobile Menu Button -->
+    <button class="btn menu-toggle" aria-label="Open menu">
+        MENU
+    </button>
+    <span class="copy-message" id="copyMessage">Email address copied!</span>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu">
+    <button class="mobile-menu-close btn" aria-label="Close menu">CLOSE</button>
+    <nav class="mobile-nav">
+        <button class="nav-link btn" data-section="about">ABOUT</button>
+        <button class="nav-link btn" data-section="experience">EXPERIENCE</button>
+        <button class="nav-link btn" data-section="projects">PROJECTS</button>
+        <a href="assets/hugo-cabret-resume.pdf" class="nav-link btn">RESUME</a></button>
+    </nav>
+    <div class="mobile-menu-footer">
+        <p class="mobile-footer-link">
+            hugo.cabret@email.com
+        </p>
+        <button class="mobile-theme-toggle" aria-label="Toggle color mode">
+  <span class="toggle-track">
+    <span class="toggle-thumb">
+      <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+<svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <circle cx="12" cy="12" r="4"/>
+  <line x1="12" y1="1" x2="12" y2="3"/>
+  <line x1="12" y1="21" x2="12" y2="23"/>
+  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+  <line x1="1" y1="12" x2="3" y2="12"/>
+  <line x1="21" y1="12" x2="23" y2="12"/>
+  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+</svg>
+    </span>
+  </span>
+        </button>
+    </div>
+</div>
+
+<!-- Main Content -->
+<main>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="hero-title">
+            <span class="hero-name-first">HUGO</span>
+            <span class="hero-name-last">CABRET</span>
+        </h1>
+        <h2 class="hero-subtitle">A service-oriented mechanical engineer with 2+ years of experience specializing in
+            automation systems and precision machinery</h2>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h3 class="section-title">About</h3>
+        <hr class="section-divider">
+
+        <div class="about-content">
+            <h4 class="about-headline">Over the years, I have worked on customer-facing products with a strong focus on
+                excellent user experience and accessibility</h4>
+
+            <div class="about-text">
+                <p>Mechanical engineer with expertise in AutoCAD, EPDM, and automation systems. Passionate about
+                    developing innovative solutions that improve efficiency and enhance how people interact with
+                    technology.</p>
+
+                <p>Experienced in designing and building precision mechanical tools and timing mechanisms with a focus
+                    on reliability, maintainability, and continuous improvement.</p>
+
+                <p>Holds a Bachelor of Science in Mechanical Engineering from Université Paris-Saclay, France, and
+                    licensed as an Engineer-in-Training (EIT).</p>
+
+                <p>Fluent in French and English with experience collaborating in multidisciplinary engineering teams
+                    across Paris.</p>
+            </div>
+
+            <div class="about-footer">
+                <div class="about-skills">
+                    <div class="contact-link">
+                        <div class="footer-bottom">
+                            <a href="https://www.github.com" target="_blank" rel="noopener noreferrer"
+                               class="footer-link">
+                                GitHub
+                            </a>
+                            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer"
+                               class="footer-link">
+                                LinkedIn
+                            </a>
+                            <a href="assets/hugo-cabret-resume.pdf" target="_blank" rel="noopener noreferrer"
+                               class="footer-link">Resume 🖨️ </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <h3 class="section-title">Experience</h3>
+        <hr class="section-divider">
+
+        <div class="experience-list">
+            <!-- Méliès Automation Systems -->
+            <article class="experience-item">
+                <h4 class="experience-company">Méliès Automation Systems</h4>
+
+                <div class="experience-meta">
+                    <p>Precision automation systems</p>
+                    <p>August 2024 — Present</p>
+                </div>
+
+                <p class="experience-description">As a Junior Mechanical Engineer, I design, develop, and test
+                    high-quality mechanical tools and automated equipment with a focus on timing mechanisms and
+                    precision clockwork applications. I work closely with customers to provide expert technical support
+                    and conduct environmental impact assessments. </p>
+
+                <div class="experience-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Position:</span>
+                        <span class="detail-value">Junior Mechanical Engineer</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Location:</span>
+                        <span class="detail-value">Paris, France</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Industry:</span>
+                        <span class="detail-value">Automation & Mechanical Systems</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Montparnasse Engineering Group -->
+            <article class="experience-item">
+                <h4 class="experience-company">Montparnasse Engineering Group</h4>
+
+                <div class="experience-meta">
+                    <p>Mechanical engineering consultancy</p>
+                    <p>July 2023 — August 2024</p>
+                </div>
+
+                <div class="experience-description">
+                    <p>I worked closely with senior engineers to streamline processes, improve equipment efficiency, and
+                        develop design ideas from concept to implementation. I gained valuable experience in restoration
+                        and repair of vintage mechanical systems and automata.</p>
+                    <p>Engineering Group is a respected mechanical engineering firm providing design, analysis, and
+                        consulting services across transportation, manufacturing, and heritage preservation sectors.</p>
+                </div>
+
+                <div class="experience-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Position:</span>
+                        <span class="detail-value">Mechanical Engineer Intern</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Location:</span>
+                        <span class="detail-value">Paris, France</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Industry:</span>
+                        <span class="detail-value">Mechanical Engineering</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <h3 class="section-title">Projects</h3>
+        <hr class="section-divider">
+
+        <div class="projects-list">
+            <!-- Project 1: Automated Clock Synchronization System -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h4 class="project-title">Automated Clock Synchronization System</h4>
+                    <p class="project-meta">Mechanical Design, CAD Modeling, Prototyping
+                        2025</p>
+                    <div class="project-description">
+                        <p>This personal project originated from my fascination with precision timekeeping and
+                            synchronization challenges in large facilities.</p>
+                        <p>My goal was to design a mechanical system that could synchronize multiple clocks throughout a
+                            building while minimizing power consumption and maintenance requirements.</p>
+                        <p>The project involved extensive CAD modeling in AutoCAD, prototyping with 3D-printed
+                            components, and testing various gear ratios to achieve optimal performance.</p>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <img src="assets/project1.png" alt="Description of image">
+                </div>
+            </article>
+
+            <!-- Project 2: Vintage Automaton Restoration -->
+            <article class="project-item project-item-reverse">
+                <div class="project-content">
+                    <h4 class="project-title">Vintage Automaton Restoration</h4>
+                    <p class="project-meta">Restoration Engineering, Mechanical Analysis
+                        2024</p>
+
+                    <p class="project-description">As part of a small team at Montparnasse Engineering Group, I
+                        contributed to the restoration of a 19th-century mechanical automaton for a private
+                        collector.</p>
+                    <p class="project-description">The project required careful analysis of the original mechanisms,
+                        reverse engineering of damaged components, and fabrication of replacement parts that matched
+                        historical specifications while incorporating modern materials for improved durability.</p>
+                    <p>The restoration combined traditional craftsmanship with modern CAD design and precision machining
+                        techniques to bring the automaton back to working condition.</p>
+                </div>
+                <div class="project-image">
+                    <img src="assets/project2.png" alt="Description of image">
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!--     Footer / Contact-->
+    <footer id="contact" class="footer">
+        <hr class="section-divider">
+    </footer>
+</main>
+
+<script>
+    // Copy EMAIL to clipboard
+    function copyEmail(event) {
+        const email = 'hugo.cabret@email.com';
+
+        navigator.clipboard.writeText(email).then(() => {
+            // Show the success message
+            const message = document.getElementById('copyMessage');
+            message.classList.add('show');
+
+            // Hide the message after 2 seconds
+            setTimeout(() => {
+                message.classList.remove('show');
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy email: ', err);
+        });
+    }
+
+    // THEME TOGGLE - Dark/Light Mode
+    const themeToggle = document.querySelector('.theme-toggle');
+    const html = document.documentElement;
+
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const theme = html.getAttribute('data-theme');
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+
+    // MOBILE MENU TOGGLE
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenuClose = document.querySelector('.mobile-menu-close');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav .nav-link');
+    const mobileThemeToggle = document.querySelector('.mobile-theme-toggle');
+
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+    });
+
+    mobileMenuClose.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+    });
+
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+    });
+
+    mobileMenu.addEventListener('click', (e) => {
+        if (e.target === mobileMenu) {
+            mobileMenu.classList.remove('active');
+        }
+    });
+
+    if (mobileThemeToggle) {
+        mobileThemeToggle.addEventListener('click', () => {
+            const theme = html.getAttribute('data-theme');
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+        });
+    }
+
+    // SMOOTH SCROLL NAVIGATION
+    const allNavLinks = document.querySelectorAll('.nav-link');
+
+    allNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const sectionId = link.getAttribute('data-section');
+            const section = document.getElementById(sectionId);
+
+            if (section) {
+                e.preventDefault();
+
+                // Get computed styles to check for padding/margin
+                const styles = window.getComputedStyle(section);
+                const paddingTop = parseFloat(styles.paddingTop);
+
+                const headerHeight = 80;
+                const offset = headerHeight - paddingTop; // Adjust for section padding
+
+                const sectionTop = section.getBoundingClientRect().top + window.pageYOffset - offset;
+
+                window.scrollTo({
+                    top: sectionTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // FADE-IN ANIMATION ON SCROLL
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observerCallback = (entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+</script>
+</body>
+</html>
