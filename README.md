@@ -1,2 +1,2 @@
 # cabret-portfolio
-Minimalist portfolio with light/dark mode toggle, oversized hero typography, and clean sectioned layout. Modern design system with custom properties and responsive breakpoints.
+A polished, minimalist portfolio featuring a complete light/dark theme system with toggle button. Large-scale hero typography creates strong visual impact, while clean sections present experience, projects, and skills with excellent readability. Built with CSS custom properties for theming, mobile-first responsive design, and semantic HTML structure. Uses system fonts for performance and includes smooth theme transitions. Perfect for engineers seeking a contemporary, professional presentation with user-controlled appearance preferences and emphasis on content clarity.
